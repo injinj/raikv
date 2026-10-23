@@ -270,19 +270,18 @@ struct BloomBits {
   }
   /* split hash into slices */
   uint8_t split( uint64_t h,  uint32_t c[ 4 ] ) const {
-    size_t   i = 0;
     uint32_t s = 0;
     uint8_t  slice = 1 | 2;
     c[ 0 ]  = bit_slice( this->MASK1(), s, h );
-    i += this->SIZE1(); s += this->SHFT1;
+    s += this->SHFT1;
     c[ 1 ] = bit_slice( this->MASK2(), s, h );
     c[ 2 ] = c[ 3 ] = 0;
     if ( this->SHFT3 > 0 ) {
-      i += this->SIZE2(); s += this->SHFT2;
+      s += this->SHFT2;
       c[ 2 ] = bit_slice( this->MASK3(), s, h );
       slice |= 4;
       if ( this->SHFT4 > 0 ) {
-        i += this->SIZE3(); s += this->SHFT3;
+        s += this->SHFT3;
         c[ 3 ] = bit_slice( this->MASK4(), s, h );
         slice |= 8;
       }

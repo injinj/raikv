@@ -741,7 +741,7 @@ EvPoll::drain_prefetch( void ) noexcept
   EvPrefetchQueue & pq = *this->prefetch_queue;
   EvKeyCtx * ctx[ PREFETCH_SIZE ];
   EvSocket * s;
-  size_t i, j, sz, cnt = 0;
+  size_t i, j, sz/*, cnt = 0*/;
 
   sz = PREFETCH_SIZE;
   if ( sz > pq.count() )
@@ -776,7 +776,7 @@ EvPoll::drain_prefetch( void ) noexcept
       case EK_CONTINUE:  /* key complete, more keys to go */
         break;
     }
-    cnt++;
+    /*cnt++;*/
     if ( --sz == 0 && pq.is_empty() ) {
       /*this->prefetch_cnt[ 0 ] += cnt;*/
       return;
@@ -1644,7 +1644,7 @@ write_notify:;
   }
 
   ssize_t nbytes;
-  size_t  nb = 0;
+  /*size_t  nb = 0;*/
 #if ! defined( _MSC_VER ) && ! defined( __MINGW32__ )
   struct msghdr h;
   ::memset( &h, 0, sizeof( h ) );
@@ -1672,7 +1672,7 @@ write_notify:;
     strm.wr_free    += nbytes;
     this->bytes_sent += nbytes;
     this->send_count++;
-    nb += nbytes;
+    /*nb += nbytes;*/
     this->active_ns = this->poll.now_ns;
     this->sock_wroff = 0;
     this->bytes_active = this->bytes_recv;
